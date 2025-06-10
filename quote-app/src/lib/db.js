@@ -1,7 +1,6 @@
 import pkg from 'pg';
 const { Pool } = pkg;
 
-
 // create pool if doesnt exist
 if (!global.pool) {
   try {
@@ -35,5 +34,4 @@ if (!global.pool) {
 }
 
 let pool = global.pool;
-
 export default pool;
