@@ -134,7 +134,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-quotes.csv
 
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
@@ -178,3 +177,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ignore large file
+quotes.csv
