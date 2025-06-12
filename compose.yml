@@ -1,0 +1,33 @@
+services:
+  db:
+    build:
+      context: ./database
+    container_name: quote-db
+    environment:
+      POSTGRES_USER: quote_user
+      POSTGRES_PASSWORD: secretpassword
+      POSTGRES_DB: quote_app_db
+    volumes:
+      - quote-db-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  web:
+    build:
+      context: ./quote-app
+    container_name: quote-web
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://quote_user:secretpassword@db:5432/quote_app_db
+      NODE_ENV: production
+    ports:
+      - '3000:3000'
+    networks:
+      - app-network
+
+volumes:
+  quote-db-data:
+
+networks:
+  app-network:
