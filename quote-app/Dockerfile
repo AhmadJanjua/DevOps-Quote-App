@@ -6,8 +6,13 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
-# Copy in your source & build the Next.js app
+# Copy in your source
 COPY . .
+
+# Run tests
+RUN npm run test
+
+# build the Next.js app
 RUN npm run build
 
 # run the website
