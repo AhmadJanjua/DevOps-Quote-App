@@ -150,6 +150,7 @@ dist
 
 # testing
 /coverage
+*/test-results
 
 # next.js
 /.next/
@@ -182,3 +183,4 @@ next-env.d.ts
 quotes.csv
 
 /jenkins/*
+Jenkinsfile
