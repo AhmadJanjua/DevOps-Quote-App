@@ -1,7 +1,6 @@
 services:
   db:
-    build:
-      context: ./database
+    image: ahmadjanjua/devops-quote-app-db:latest
     container_name: quote-db
     environment:
       POSTGRES_USER: quote_user
