@@ -1,20 +1,20 @@
 services:
   db:
     image: ahmadjanjua/devops-quote-app-db:latest
-    container_name: quote-db
+    container_name: ${DB_NAME}
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
-      - quote-db-data:/var/lib/postgresql/data
+      - quote-vol:/var/lib/postgresql/data"
     networks:
       - app-network
 
   web:
     build:
       context: ./quote-app
-    container_name: quote-web
+    container_name: ${APP_NAME}
     depends_on:
       - db
     environment:
@@ -26,7 +26,7 @@ services:
       - app-network
 
 volumes:
-  quote-db-data:
+  quote-vol:
 
 networks:
   app-network:
