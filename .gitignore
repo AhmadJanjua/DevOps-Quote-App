@@ -181,6 +181,3 @@ next-env.d.ts
 
 # ignore large file
 quotes.csv
-
-/jenkins/*
-Jenkinsfile
