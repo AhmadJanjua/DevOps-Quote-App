@@ -1,13 +1,10 @@
 pipeline {
     agent any
     
-    // environment variables - differ from compose
     environment {
-        DB_NAME = 'quote-db-jenkins'
-        APP_NAME = 'quote-web-jenkins'
-        POSTGRES_USER = 'quote_user_jenkins'
-        POSTGRES_DB = 'quote_db_jenkins'
-        POSTGRES_PASSWORD = credentials('POSTGRES_PASSWORD')
+        PG_DB_NAME = 'quote_db'
+        PG_USER = 'quote_user'
+        PG_PASS = credentials('PG_PASS')
     }
     
     stages {
@@ -56,20 +53,16 @@ pipeline {
         // create file
         stage('Build') {
             steps {
-                withCredentials([string(credentialsId: 'POSTGRES_PASSWORD', variable: 'POSTGRES_PASSWORD')]) {
-                    script {
-                        def dbUrl = 'postgres://' + env.POSTGRES_USER + ':' + POSTGRES_PASSWORD + '@db:5432/' + env.POSTGRES_DB
-                        
-                        withEnv([
-                            "DB_NAME=${env.DB_NAME}",
-                            "APP_NAME=${env.APP_NAME}",
-                            "POSTGRES_USER=${env.POSTGRES_USER}",
-                            "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}",
-                            "POSTGRES_DB=${env.POSTGRES_DB}",
-                            "DATABASE_URL=${dbUrl}"
-                        ]) {
-                            sh 'docker-compose --project-name "jenkins" up -d --build'
-                        }
+                script {
+                    def PG_URL = 'postgres://' + env.PG_USER + ':' + PG_PASS + '@db:5432/' + env.PG_DB_NAME
+                    
+                    withEnv([
+                        "PG_DB_NAME=${env.PG_DB_NAME}",
+                        "PG_USER=${env.PG_USER}",
+                        "PG_PASS=${env.PG_PASS}",
+                        "PG_URL=${PG_URL}"
+                    ]) {
+                        sh 'docker-compose --project-name "jenkins" up -d --build'
                     }
                 }
             }
