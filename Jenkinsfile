@@ -62,7 +62,7 @@ pipeline {
                         "PG_PASS=${env.PG_PASS}",
                         "PG_URL=${PG_URL}"
                     ]) {
-                        sh 'docker-compose --project-name "jenkins" up -d --build'
+                        sh 'docker-compose --project-name quote-ci up -d --build'
                     }
                 }
             }
@@ -72,7 +72,7 @@ pipeline {
     post {
         // clean up the resources created
         always {
-            sh 'docker-compose --project-name "jenkins" down -v || true'
+            sh 'docker-compose --project-name quote-ci down -v || true'
         }
     }
 }
