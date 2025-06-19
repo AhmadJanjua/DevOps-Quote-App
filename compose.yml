@@ -1,7 +1,6 @@
 services:
   db:
     image: ahmadjanjua/quote-db:latest
-    container_name: quote-db
     environment:
       POSTGRES_DB: ${PG_DB_NAME}
       POSTGRES_USER: ${PG_USER}
@@ -14,7 +13,6 @@ services:
   web:
     build:
       context: ./quote-app
-    container_name: quote-web
     depends_on:
       - db
     environment:
