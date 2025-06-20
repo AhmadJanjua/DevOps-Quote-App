@@ -17,6 +17,8 @@ pipeline {
                 checkout scm
                 script {
                     echo "Branch: ${env.BRANCH_NAME}"
+                    echo "Is PR: ${env.CHANGE_ID != null}"
+                    echo "PR Target: ${env.CHANGE_TARGET}"
                 }
             }
         }
@@ -25,9 +27,11 @@ pipeline {
             parallel {
                 stage('Lint') {
                     steps {
-                        docker.image('node:22-alpine').inside {
-                            dir('quote-app') {
-                                sh 'npm install && npm run lint'
+                        script {
+                            docker.image('node:22-alpine').inside {
+                                dir('quote-app') {
+                                    sh 'npm install && npm run lint'
+                                }
                             }
                         }
                     }
@@ -35,12 +39,15 @@ pipeline {
 
                 stage('Test') {
                     steps {
-                        docker.image('node:22-alpine').inside {
-                            dir('quote-app') {
-                                sh 'npm install && npm run test'
+                        script {
+                            docker.image('node:22-alpine').inside {
+                                dir('quote-app') {
+                                    sh 'npm install && npm run test'
+                                }
                             }
                         }
                     }
+
                     post {
                         always {
                             junit 'quote-app/test-results/results.xml'
