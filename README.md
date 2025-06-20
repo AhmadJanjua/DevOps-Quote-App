@@ -73,6 +73,8 @@ Each visitor to the site is shown a quote corresponding to a global index stored
 | Other branches | Lint → Test                                  |
 
 ![alt text](docs/automation.jpg)
+
+![alt text](docs/pipeline.png)
 ---
 
 ## Technology Stack
