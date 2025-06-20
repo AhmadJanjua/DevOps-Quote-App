@@ -71,6 +71,7 @@ Each visitor to the site is shown a quote corresponding to a global index stored
 | `main` commits | Lint → Test → Build → Deploy to Raspberry Pi |
 | `main` PRs     | Lint → Test → Build                          |
 | Other branches | Lint → Test                                  |
+
 ![alt text](docs/automation.jpg)
 ---
 
