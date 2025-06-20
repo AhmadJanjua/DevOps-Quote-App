@@ -9,8 +9,15 @@ services:
     volumes:
       - jenkins-data:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.ssh:/var/jenkins_home/.ssh:ro
+    networks:
+      - jenkins-net
     restart: unless-stopped
 
 volumes:
   jenkins-data:
     name: jenkins-data
+
+networks:
+  jenkins-net:
+    name: jenkins-net
