@@ -1,0 +1,30 @@
+services:
+  db:
+    image: ahmadjanjua/quote-db:latest
+    environment:
+      POSTGRES_DB: ${PG_DB_NAME}
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASS}
+    volumes:
+      - quote-vol:/var/lib/postgresql/data
+    networks:
+      - quote-net
+
+  web:
+    build:
+      context: ./quote-app
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: ${PG_URL}
+      NODE_ENV: production
+    ports:
+      - '3000:3000'
+    networks:
+      - quote-net
+
+volumes:
+  quote-vol:
+
+networks:
+  quote-net:
